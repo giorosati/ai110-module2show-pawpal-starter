@@ -51,13 +51,18 @@ pet_name = st.text_input("Pet name", value="Mochi")
 species = st.selectbox("Species", ["dog", "cat", "other"])
 
 if st.button("Create Pet"):
-    pet = Pet(name=pet_name, species=species, age=1, needs={}, tasks=[])
-    if st.session_state.owner:
-        st.session_state.owner.pets.append(pet)
-        st.success(f"Pet {pet_name} added to existing owner!")
+    # Improvement #9: prevent duplicate pet names (causes silent bugs in add/remove_task)
+    existing_names = [p.name for p in st.session_state.owner.pets] if st.session_state.owner else []
+    if pet_name in existing_names:
+        st.error(f"A pet named '{pet_name}' already exists. Use a unique name.")
     else:
-        st.session_state.owner = Owner(name=owner_name, available_minutes_per_day=60, preferences={}, constraints=[], pets=[pet])
-        st.success(f"Pet {pet_name} created!")
+        pet = Pet(name=pet_name, species=species, age=1, needs={}, tasks=[])
+        if st.session_state.owner:
+            st.session_state.owner.pets.append(pet)
+            st.success(f"Pet {pet_name} added to existing owner!")
+        else:
+            st.session_state.owner = Owner(name=owner_name, available_minutes_per_day=60, preferences={}, constraints=[], pets=[pet])
+            st.success(f"Pet {pet_name} created!")
 
 # Display current pets
 if st.session_state.owner:
@@ -117,6 +122,6 @@ if st.button("Generate schedule"):
         scheduler = Scheduler(st.session_state.owner)
         plan_explanation = scheduler.explain_plan()
         st.write("Today's Schedule:")
-        st.code(plan_explanation)
+        st.text(plan_explanation)
     else:
         st.error("Create a pet first.")
