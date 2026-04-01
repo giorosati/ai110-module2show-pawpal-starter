@@ -35,10 +35,15 @@ This modification was implemented to avoid storing unnecessary states. Now the p
 - What constraints does your scheduler consider (for example: time, priority, preferences)?
 - How did you decide which constraints mattered most?
 
+Constraints: Required vs. optional, time budget, priority, completion status.
+
+The most important constraint is "Required" vs. "Optional". Tasks marked required=True (like medication or feeding) sort to the top of every plan regardless of priority score. A pet missing a walk is inconvenient; a pet missing medication is harmful. This made required the highest-order sort key.
+
 **b. Tradeoffs**
 
 - Describe one tradeoff your scheduler makes.
 - Why is that tradeoff reasonable for this scenario?
+Refactored the generate_plan() method from 56 lines → 22 lines with identical behavior: same sort order, same bin-packing (loop never breaks early), same skipped-task list. This dramatically reduced the complexity and made it easier to read and understand.
 
 ---
 
