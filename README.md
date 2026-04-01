@@ -102,7 +102,7 @@ All 21 tests pass. Core scheduling, recurrence, sorting, and conflict detection 
 
 ### Demo
 
-![PawPal App](uml_final.png)
+![PawPal App](pawpal_app.png)
 
 
 ## Getting started
