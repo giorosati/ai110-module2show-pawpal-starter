@@ -101,7 +101,12 @@ class Scheduler:
             return "No tasks can be scheduled within available time."
         explanation = "Scheduled tasks (prioritized):\n"
         for task in plan:
-            explanation += f"- {task.description} ({task.duration_minutes} min, priority {task.priority})\n"
+            pet_name = "Unknown"
+            for pet in self.owner.pets:
+                if task in pet.tasks:
+                    pet_name = pet.name
+                    break
+            explanation += f"- {task.description} for {pet_name} ({task.duration_minutes} min, priority {task.priority})\n"
         return explanation
 
     def add_task(self, task: Task, pet_name: str):
