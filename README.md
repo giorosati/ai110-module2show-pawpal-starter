@@ -22,6 +22,21 @@ Your final app should:
 - Display the plan clearly (and ideally explain the reasoning)
 - Include tests for the most important scheduling behaviors
 
+## Features
+
+- **Priority-based scheduling** — Tasks are ranked by `required` status first, then by priority level (1–5). Required tasks always claim time slots before optional ones, regardless of priority score.
+- **Bin-packing plan generation** — The scheduler never stops early when a task doesn't fit. It continues iterating so smaller lower-priority tasks can fill leftover minutes after a large task is skipped.
+- **Chronological sorting** — `sort_by_time` converts `"HH:MM"` strings to total minutes before comparing, avoiding lexicographic pitfalls (e.g. `"9:00"` incorrectly sorting after `"13:30"`). Tasks with no start time are grouped at the end.
+- **Task filtering** — `filter_tasks` accepts an optional pet name and/or completion status and combines them with AND logic, making it easy to show one pet's incomplete tasks or a full cross-pet to-do list.
+- **Daily and weekly recurrence** — Marking a task complete automatically creates the next occurrence with a computed `due_date` (`timedelta(days=1)` or `timedelta(weeks=1)`). Python's `timedelta` handles month and year rollovers automatically.
+- **Conflict detection** — Every pair of scheduled timed tasks is checked using the interval-overlap formula `A.start < B.end AND B.start < A.end`. Conflicts are reported with scope (`same pet` or `different pets`); tasks without a start time produce a warning instead of a false negative.
+- **Task deduplication** — `get_all_tasks` tracks seen IDs across all pets so a task shared between pets is never double-scheduled.
+- **Plan cache with dirty flag** — The generated plan is cached and only recomputed when tasks are added, removed, or marked complete. This avoids redundant sorting passes on every UI rerender.
+- **Editable tasks** — Any task field (title, duration, priority, required, frequency, start time) can be updated in place through the UI. The cache is invalidated immediately so the next schedule generation reflects the change.
+- **Conflict warnings in the UI** — Overlapping tasks surface as `st.warning` banners with task names, time windows, and a plain-language fix suggestion. Missing start times appear as `st.info` notices so the owner knows what still needs to be checked.
+
+---
+
 ## Smarter Scheduling
 
 The `Scheduler` class goes beyond a basic priority sort. Here is a summary of the features added incrementally:
@@ -85,7 +100,10 @@ The suite contains 21 tests organized into five areas:
 
 All 21 tests pass. Core scheduling, recurrence, sorting, and conflict detection are well covered.
 
----
+### Demo
+
+<a href="C:\Users\Giovanni\code\CODEPATH\ai110-module2show-pawpal-starter\uml_final.png" target="_blank"><img src='C:\Users\Giovanni\code\CODEPATH\ai110-module2show-pawpal-starter\uml_final.png' title='PawPal App' width='' alt='PawPal App' class='center-block' /></a>
+
 
 ## Getting started
 

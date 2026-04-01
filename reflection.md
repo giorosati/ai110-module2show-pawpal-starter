@@ -53,11 +53,14 @@ Refactored the generate_plan() method from 56 lines → 22 lines with identical 
 
 - How did you use AI tools during this project (for example: design brainstorming, debugging, refactoring)?
 - What kinds of prompts or questions were most helpful?
+I used AI tools in every stage of this project, from the initial design and UML digaram to the final testing and UI edits.
+I found the prompts about refactoring to be the most helpful because AI suggested improvements that I did not consider.
 
 **b. Judgment and verification**
 
 - Describe one moment where you did not accept an AI suggestion as-is.
 - How did you evaluate or verify what the AI suggested?
+AI made suggested an edit to the UI that I rejected because I did not like the way it would display information to the user. I implemented the suggestion, previewed the result, and reversed the change. Then I followed up with a different prompt to achieve a better result.
 
 ---
 
@@ -68,10 +71,20 @@ Refactored the generate_plan() method from 56 lines → 22 lines with identical 
 - What behaviors did you test?
 - Why were these tests important?
 
+The suite contains 21 tests organized into five areas:
+
+- **Happy paths** — all tasks fit within the budget, required tasks are scheduled before optional ones, and `explain_plan` lists both scheduled and skipped tasks.
+- **Sorting correctness** — `sort_by_time` returns tasks in chronological order; tasks without a `start_time` are placed at the end.
+- **Recurrence logic** — completing a daily task creates a new task due the next day; weekly tasks advance by 7 days; one-off tasks return `None`; unknown IDs raise `ValueError`.
+- **Conflict detection** — overlapping tasks produce `CONFLICT` strings; adjacent (non-overlapping) tasks do not; tasks missing `start_time` produce `WARNING` strings; a clean schedule returns an empty list.
+- **Edge cases** — pet with no tasks, zero-budget owner, task duration exactly equal to budget, duplicate task IDs across pets, and cache invalidation after mutations.
+
 **b. Confidence**
 
 - How confident are you that your scheduler works correctly?
 - What edge cases would you test next if you had more time?
+
+I am very confident the scheduler works correctly. Given more time I would test situations involving time changes (daylinght savings time, traversing time zones, times that start before midnight and extend into the next day) as the code is currently not able to handle those situations.
 
 ---
 
@@ -80,11 +93,14 @@ Refactored the generate_plan() method from 56 lines → 22 lines with identical 
 **a. What went well**
 
 - What part of this project are you most satisfied with?
+The speed and accuracy of the logic that AI proposed.
 
 **b. What you would improve**
 
 - If you had another iteration, what would you improve or redesign?
+I would put attention on making the UI better - improved layout, colors, etc. as well as making it responsive for all screen sizes.
 
 **c. Key takeaway**
 
 - What is one important thing you learned about designing systems or working with AI on this project?
+In this experience I found it's ability to do UI design was it's weak point.
