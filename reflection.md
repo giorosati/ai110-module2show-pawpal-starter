@@ -21,6 +21,10 @@
 
 - Did your design change during implementation?
 - If yes, describe at least one change and why you made it.
+AI suggested this modification:
+planned_tasks: Initialized as input list – consider making it a derived property to avoid redundancy.
+
+This modification was implemented to avoid storing unnecessary states. Now the plan will be created on demand.
 
 ---
 
