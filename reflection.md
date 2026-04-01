@@ -5,7 +5,17 @@
 **a. Initial design**
 
 - Briefly describe your initial UML design.
+  - I designed a small domain model with four core classes: `Owner`, `Pet`, `Task`, and `Scheduler`.
+  - `Owner` stores owner profile and availability constraints.
+  - `Pet` stores pet attributes and special needs.
+  - `Task` stores task type (walk, feed, meds, enrichment, grooming), duration, priority, and status.
+  - `Scheduler` composes tasks and constraints to produce a prioritized daily plan and explanation text.
 - What classes did you include, and what responsibilities did you assign to each?
+  - `Owner`: preferences, total daily available time, and any hard constraints.
+  - `Pet`: species-dependent care requirements and identifiers.
+  - `Task`: task metadata and scheduling properties.
+  - `Scheduler`: planning algorithm, constraint enforcement, plan generation, and reasoning output.
+
 
 **b. Design changes**
 
