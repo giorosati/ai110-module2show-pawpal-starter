@@ -102,7 +102,7 @@ All 21 tests pass. Core scheduling, recurrence, sorting, and conflict detection 
 
 ### Demo
 
-<a href="C:\Users\Giovanni\code\CODEPATH\ai110-module2show-pawpal-starter\uml_final.png" target="_blank"><img src='C:\Users\Giovanni\code\CODEPATH\ai110-module2show-pawpal-starter\uml_final.png' title='PawPal App' width='' alt='PawPal App' class='center-block' /></a>
+![PawPal App](uml_final.png)
 
 
 ## Getting started
